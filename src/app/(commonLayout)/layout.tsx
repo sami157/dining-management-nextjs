@@ -5,8 +5,9 @@ export default function CommonLayout({
 }>) {
     return (
         <>
-            Common
+            NAVBAR
             {children}
+            FOOTER
         </>
     );
 }

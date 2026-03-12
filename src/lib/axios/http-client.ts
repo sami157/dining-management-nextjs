@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 const instance = axios.create({
-    baseURL: 'https://dining-management-server.vercel.app/',
+    // baseURL: 'https://dining-management-server.vercel.app/',
+    baseURL: 'http://localhost:5000/',
     timeout: 10000,
 });
 
@@ -10,7 +11,7 @@ export interface ApiRequestOptions {
     headers: Record<string, string>,
 }
 
-const httpGet = async(endpoint: string, options: ApiRequestOptions) => {
+const httpGet = async(endpoint: string, options?: ApiRequestOptions) => {
     try {
         const response = await instance.get(endpoint, {
             params: options?.params,
@@ -23,7 +24,7 @@ const httpGet = async(endpoint: string, options: ApiRequestOptions) => {
     }
 }
 
-const httpDelete = async(endpoint: string, options: ApiRequestOptions) => {
+const httpDelete = async(endpoint: string, options?: ApiRequestOptions) => {
     try {
         const response = await instance.delete(endpoint, {
             params: options?.params,

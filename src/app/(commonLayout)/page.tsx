@@ -1,16 +1,19 @@
-import { Button } from "@/components/ui/button";
+import getAllUsers from "@/components/custom/_actions";
+import MealSheet from "@/components/custom/MealSheet";
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 
-export default function Home() {
+export default async function Home() {
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery({
+    queryKey: ['users'],
+    queryFn: getAllUsers,
+  })
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <div className="flex flex-col items-center">
-        NextJS App Cooking
-        <Button variant='default'
-        className="w-fit"
-        >
-          Button
-        </Button>
-      </div>
-    </div>
+    <>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <MealSheet />
+      </HydrationBoundary>
+    </>
   );
 }
